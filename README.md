@@ -18,7 +18,7 @@ Paper
 Prepare Input Data
 ----------
 
-Two input files representing ranked genes (e.g., according to expression values) with indicator value (1: included in the gene set, 0: otherwise) is necessary.
+Two input files representing ranked genes (e.g., according to expression values) with indicator value (1: included in the gene set, 0: otherwise) are necessary.
 For example, the following file
 
 	1
@@ -31,8 +31,8 @@ For example, the following file
 	0
 	0
   
-shows that among 10 ranked genes, the 1st, 4th, 5th and 7th are included in the specific gene set.
-Please check the E2F_rank.txt and NFY_rank.txt files, that show whether each gene has E2F and NFY motifs, respectively, in its promoter sequence.
+shows that the 1st, 4th, 5th and 7th are included in the specific gene set among 10 ranked genes.
+Please check the E2F_rank.txt and NFY_rank.txt files, which show whether each gene has E2F and NFY motifs, respectively, in its promoter sequence.
 
 Please note that the two input file are ranked by the same criterion.
 Therefore, for example, the 100th genes in the first and second input files should be the same gene.
@@ -51,16 +51,13 @@ Just type the following command
 
 	$ rankSynergy <the first input file> <the second input file> <the output file> <the number of MCMC cycles (optional)> <the number of burn-in cycles (optional)>
 
-Then you will get the result in the output file.
-
-under the specified output directory.
+Then you will get the result in the output file under the specified output directory.
 
 
 Test run
 ----------
 
 Type the following command after compiling.
-
 
 	rankSynergy E2F_rank.txt NFY_rank.txt output.txt 10000000 100000
 

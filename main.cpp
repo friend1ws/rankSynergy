@@ -47,11 +47,22 @@ int main(int argc, char** argv) {
         return -1;
     }
 
-    // **********
-    // reading input rank files
     std::string rank_file1 = argv[1];
     std::string rank_file2 = argv[2];
+    std::string outfile = argv[3];
+    
+    long unsigned int MCMCNum = 10000000;
+    long unsigned int burnInNum = 10000;
 
+    if (argc >= 5) {
+        MCMCNum = atoi(argv[4]);
+    }                 
+    if (argc >= 6) {
+        burnInNum = atoi(argv[5]);
+    }
+
+    // **********
+    // reading input rank files
     std::vector<int> orgRank1;
     std::vector<int> orgRank2;
 
@@ -72,24 +83,46 @@ int main(int argc, char** argv) {
         std::cerr << "The sizes of " << rank_file1 << " and " << rank_file2 << " are inconsistent." << "\n";
     }
     // **********
-
+    
     
     GeneSetConf gsConf(orgRank1, orgRank2);
     gsConf.printInfo();
     gsConf.checkConsistency();
 
+    std::cerr << "The number of burn-in cycles is : " << burnInNum << "\n";
+    std::cerr << "The number of MCMC cycles is : " << MCMCNum << "\n";
+
+
     std::size_t belowOrgRankSum = 0;
+
     // **********
-    for (int i = 1; i <= 10000000; i++) {
+    // burn in step
+    for (long unsigned int i = 1; i <= burnInNum; i++) {
+        gsConf.Update();
+    }
+    std::cerr << "The burn-in cycles are finished.\n";
+    // **********
+
+    for (long unsigned int i = 1; i <= MCMCNum; i++) {
 
         gsConf.Update();
         belowOrgRankSum = belowOrgRankSum + gsConf.checkRankSum();
 
         if (i % 100000 == 0) {
-            std::cerr << i << " times finished. current rank_sum: " << gsConf.getRankSum() << ". #{rank_sum of MCMC samples <= original rank_sum}: " << belowOrgRankSum << "\n";
+            std::cerr << i << " times finished. current rank_sum: " << gsConf.getRankSum() << ". #{MCMC samples: rank_sums <= the target rank_sum}: " << belowOrgRankSum << "\n";
             gsConf.checkConsistency();
         }
     }
+
+
+    std::ofstream ofs(outfile.c_str());
+    if (ofs.fail()) {
+        std::cerr << "Error: Could not open the output file.\n";
+        exit(8);
+    }
+    ofs << "MCMC cycle: " << MCMCNum << "\n";
+    ofs << "p-value: " << static_cast<double>(belowOrgRankSum) / static_cast<double>(MCMCNum) << "\n";
+    ofs.close();
 
     return(0);
 }

@@ -1,7 +1,9 @@
 rankSynergy
 ===========
 
-The rankSynergy is a C++ implementation of the algorithm proposed in the paper below for measuring synergistic effects between two gene sets.
+The rankSynergy performs a rank-based non-parametric statistical test for measuring the effects between two gene sets.
+For calculating an approximate significance value of synergy, an efficient Markov chain Monte Carlo method is used.
+This software is a C++ implementation of the algorithm proposed in the paper below.
 
 Please mail friend1ws@gmail.com for problems or questions.
 
@@ -30,12 +32,12 @@ For example, the following file
 	0
   
 shows that among 10 ranked genes, the 1st, 4th, 5th and 7th are included in the specific gene set.
-Please check the E2F_rank.txt and NFY_rank.txt files, that show whether each gene has E2F and NFY motifs, respectively, in its promoter sequence,
+Please check the E2F_rank.txt and NFY_rank.txt files, that show whether each gene has E2F and NFY motifs, respectively, in its promoter sequence.
 
-Please note that the two input file are ranked by the same criterian.
-Therefore, the 100th gene in the first and second input files is the same gene.
+Please note that the two input file are ranked by the same criterion.
+Therefore, for example, the 100th genes in the first and second input files should be the same gene.
 
-We recommend that the ratio of genes included in the gene set does not exceed 50%.
+We recommend that the ratio of genes included in gene sets do not exceed 50%.
 
 
 How to run

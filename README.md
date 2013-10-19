@@ -1,11 +1,11 @@
 rankSynergy
 ===========
 
-The rankSynergy performs a rank-based non-parametric statistical test for measuring the effects between two gene sets.
+The rankSynergy performs a rank-based non-parametric statistical test for measuring the synergistic effects between two gene sets.
 For calculating an approximate significance value of synergy, an efficient Markov chain Monte Carlo method is used.
 This software is a C++ implementation of the algorithm proposed in the paper below.
 
-Please mail friend1ws@gmail.com for problems or questions.
+Please mail friend1ws@gmail.com for any problems or questions.
 
 
 
